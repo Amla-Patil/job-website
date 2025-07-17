@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -22,12 +22,12 @@
       padding: 10px;
       margin-top: 5px;
       width: 300px;
-      border: 1px solid ##72b61a;
+      border: 1px solid #72b61a;
       border-radius: 5px;
       font-size: 16px;
     }
     button {
-      background-color: #537f9;
+      background-color: #537f99;
       color: rgb(4, 8, 68);
       border: none;
       cursor: pointer;
@@ -51,7 +51,7 @@
     <input type="text" id="task-desc" placeholder="Enter task description" required />
 
     <label for="payment">Payment Amount</label>
-    <input type="number" id="payment" placeholder="Enter payment amount" required />
+    <input type="number" id="payment" placeholder="Enter payment amount" required min="0" />
 
     <label for="category">Category</label>
     <select id="category" required>
@@ -80,7 +80,7 @@
     categorySelect.addEventListener('change', () => {
       if (categorySelect.value === 'other') {
         customCategoryInput.style.display = 'block';
-        customCategoryInput.required = true; // make it required if shown
+        customCategoryInput.required = true; // make required if shown
       } else {
         customCategoryInput.style.display = 'none';
         customCategoryInput.required = false;
@@ -88,6 +88,7 @@
       }
     });
 
+    // Handle form submission
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -97,16 +98,18 @@
           : categorySelect.value;
 
       const taskData = {
-        title: document.getElementById('task-title').value,
-        description: document.getElementById('task-desc').value,
-        payment: document.getElementById('payment').value,
+        title: document.getElementById('task-title').value.trim(),
+        description: document.getElementById('task-desc').value.trim(),
+        payment: document.getElementById('payment').value.trim(),
         category: selectedCategory,
       };
 
       console.log('Task added:', taskData);
       alert('Task added successfully!');
+
       form.reset();
-      customCategoryInput.style.display = 'none'; // hide again after reset
+      customCategoryInput.style.display = 'none';
+      document.getElementById('task-title').focus();
     });
   </script>
 </body>
